@@ -52,3 +52,4 @@ def load_salmonella_genome():
                 gene.append(amino_acid_seq)
     f.close()
     return retval
+    
