@@ -135,8 +135,8 @@ def find_all_ORFs_oneframe(dna):
 def find_all_ORFs_oneframe_unit_tests():
     """ Unit tests for the find_all_ORFs_oneframe function """
 
-    print find_all_ORFs_oneframe("ATGCATGAATGTAGATAGATGTGCCC")
-    print "Expected: ATGCATGAATGTAGA, ATGTGCCC"
+    print find_all_ORFs_oneframe("ATGCATGAATGTAGATAGATGTGCCCTAGATGCATTAG")
+    print "Expected: ATGCATGAATGTAGA, ATGTGCCC, ATGCAT"
 
 def find_all_ORFs(dna):
     """ Finds all non-nested open reading frames in the given DNA sequence in all 3
@@ -156,8 +156,8 @@ def find_all_ORFs(dna):
 def find_all_ORFs_unit_tests():
     """ Unit tests for the find_all_ORFs function """
         
-    print find_all_ORFs("ATGCATGAATGTAG")
-    print "ATGCATGAATGTAG, ATGAATGTAG, ATG"
+    print find_all_ORFs("ATGCATGAATGTAGCCCATGAAATAA")
+    print "ATGCATGAATGTAG, ATGAAA, ATGAATGTAG, ATG"
     
 
 def find_all_ORFs_both_strands(dna):
@@ -176,8 +176,8 @@ def find_all_ORFs_both_strands(dna):
 def find_all_ORFs_both_strands_unit_tests():
     """ Unit tests for the find_all_ORFs_both_strands function """
 
-    print find_all_ORFs_both_strands("ATGCGAATGTAGCATCAAA")
-    print "ATGCGAATG, ATGCTACATTCGCAT"
+    print find_all_ORFs_both_strands("ATGCGAATGTAGCATCAAATGCATTAG")
+    print "ATGCGAATG, ATGCAT, ATGCTACATTCGCAT"
     
 def longest_ORF(dna):
     """ Finds the longest ORF on both strands of the specified DNA and returns it
@@ -193,7 +193,7 @@ def longest_ORF(dna):
 def longest_ORF_unit_tests():
     """ Unit tests for the longest_ORF function """
 
-    print longest_ORF("ATGCGAATGTAGCATCAAA")
+    print longest_ORF("ATGCGAATGTAGCATCAAAATGAAATAG")
     print "ATGCTACATTCGCAT"
     
 def longest_ORF_noncoding(dna, num_trials):
