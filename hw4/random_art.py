@@ -8,7 +8,7 @@ Created on Tue Feb 11 11:34:57 2014
 from random import randint
 import math
 import Image
-
+#Please only add files to git that are necessary for rebuilding your program
 def build_random_function(min_depth, max_depth):
     """
     Builds a function of many random nested functioned composed together as a nested list.
@@ -30,11 +30,11 @@ def build_random_function(min_depth, max_depth):
 
     functions = ["sin_pi","cos_pi","prod","x","y","sqrt","sqr"]
     twof = ["prod","x","y"]
-    i = randint(0,len(functions)-1)
+    i = randint(0,len(functions)-1) # This will not ever get the last element. randint is index inclusive on both ends
     func = functions[i]    
     
     if max_depth > 2:
-        if(min_depth>0 or randint(0,1)==1):
+        if(min_depth>0 or randint(0,1)==1): # nice
             if func in twof:
                 return [func,build_random_function(min_depth-1,max_depth-1),build_random_function(min_depth-1,max_depth-1)]
             else:
@@ -42,7 +42,7 @@ def build_random_function(min_depth, max_depth):
     
     if func in twof:
         return [func,["x"],["y"]]
-    else:
+    else: # use elif in this case #proper-coding
         if randint(0,1)==1:
             return [func,["x"]]
         else:
@@ -66,7 +66,7 @@ def evaluate_random_function(f, m, n):
     sqr(x) which is x^2
     """
    
-    def sin_pi(a):
+    def sin_pi(a): # look into lambda functions. it's essentially what you're trying to do here except without the extra overhead
         return math.sin(math.pi * a)
     
     def cos_pi(a):
@@ -91,11 +91,11 @@ def evaluate_random_function(f, m, n):
         return n
     elif f[0]=="x" and len(f)==1:
         return m
-    else:
+    else: # you have a lot of repetitive code here - generally a bad sign. remember DRY (don't repeat yourself)
         if f[0]=="cos_pi":
             return cos_pi(evaluate_random_function(f[1],m,n))
         if f[0]=="sin_pi":
-            return sin_pi(evaluate_random_function(f[1],m,n))
+            return sin_pi(evaluate_random_function(f[1],m,n)) 
         if f[0]=="prod":
             return prod(evaluate_random_function(f[1],m,n), evaluate_random_function(f[2],m,n))
         if f[0]=="x":
@@ -107,8 +107,23 @@ def evaluate_random_function(f, m, n):
         if f[0]=="sqr":
             return sqr(evaluate_random_function(f[1],m,n))
 
+    #Here's an alternative among several others
+    # funcs = {"prod": prod, "x":x, "y":y, "cos_pi": cos_pi, "sin_pi":sin_pi, "sqr": sqr, "sqrt", sqrt}
+    # else:
+    #     if f[0] in ["cos_pi", "sin_pi", "prod","sqrt","sqr"]:
+    #         return funcs[f[0]](evaluate_random_function(f[1],m,n))
+    #     else:
+    #         return funcs[f[0]](evaluate_random_function(f[1],m,n), evaluate_random_function(f[2],m,n))
 
-def evaluateMovie(f, m, n, t):
+
+# def evaluateMovie(f,m,n,t):
+#     tNew = remap_interval(t,0,40,-1,1)
+#     m *= tNew
+#     n *= tNew
+#     res = evaluate_random_function(f, m, n)
+#     return evaluateMovie(f,m,n,tNew)
+
+def evaluateMovie(f, m, n, t): # See above. You see how this code is almost exactly the same as your other evaluate function? you can easily write this function using the other function
     """
     Includes a t input that represents the frame number, causing the function to shift
     with different t inputs as the movie progresses.  The function edits m and n to
@@ -186,7 +201,8 @@ def remap_interval(val,input_start,input_end,output_start,output_end):
     adjustVal = float(val-input_start)
     prop = adjustVal/rangeIn
     return prop*rangeOut + output_start
-    
+
+#Like I showed you with the evaluate function. These can all be written a lot more efficiently by calling drawImage from drawMovie
 def drawImage():
     """
     Draws and saves an Image object made up of three randomly built functions,
@@ -257,6 +273,6 @@ def makeMovie():
         drawForMovie(red,green,blue,t)
 
 
-if __name__ == "__main__":
+if __name__ == "__main__": #Omg, thank you for using this.
     #makeMovie()
     drawImage()
